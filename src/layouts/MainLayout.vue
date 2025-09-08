@@ -1,6 +1,6 @@
 <template>
   <q-layout class="layout">
-    <q-page-container class="page bg-secondary">
+    <q-page-container class="page tw-bg-[#f7f7f7]">
       <Topbar />
       <Sidebar />
       <router-view />
