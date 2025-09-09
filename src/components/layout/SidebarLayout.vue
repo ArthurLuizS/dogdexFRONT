@@ -4,7 +4,7 @@
       <img class="logo" src="/logo.svg" />
     </RouterLink>
     <nav class="full-height flex column" style="gap: 5px">
-      <Iconlink link="/dogs" icon="pets" title="Lista de Cães" />
+      <Iconlink link="/caes" icon="pets" title="Lista de Cães" />
     </nav>
   </div>
 </template>
