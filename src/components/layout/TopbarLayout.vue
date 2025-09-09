@@ -18,6 +18,16 @@
       </span>
 
       <q-space />
+      <q-btn
+        class="full-height"
+        rounded
+        v-if="headerStore.action != null"
+        :label="headerStore.action?.label"
+        :icon-right="headerStore.action?.icon"
+        @click="headerStore.action?.function()"
+        color="primary"
+        unelevated
+      />
     </header>
     <!-- TODO: transformar em um avatar  -->
     <q-btn
@@ -59,11 +69,14 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { useRoute, useRouter } from "vue-router";
+import { useHeader } from "../../stores/header";
 
 const route = useRoute();
 const router = useRouter();
 
 const $q = useQuasar();
+
+const headerStore = useHeader();
 
 const goBack = () => {
   router.go(-1);
