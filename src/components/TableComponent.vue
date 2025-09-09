@@ -2,6 +2,7 @@
   <div class="q-pa-md">
     <q-table
       class="my-sticky-virtscroll-table"
+      :class="customClass"
       virtual-scroll
       flat
       bordered
@@ -11,7 +12,24 @@
       title="Treats"
       :rows="rows"
       :columns="columns"
-    />
+    >
+      <!-- coluna de 'ver mais' -->
+      <template v-slot:body-cell-actions="props">
+        <q-td :props="props">
+          <span
+            style="cursor: pointer"
+            @click="$emit('handleActions', props.row)"
+          >
+            Ver Mais
+            <q-icon
+              style="font-size: 1.6rem"
+              color="primary"
+              name="chevron_right"
+            />
+          </span>
+        </q-td>
+      </template>
+    </q-table>
   </div>
 </template>
 
@@ -19,11 +37,13 @@
 interface TableDataProps {
   rows: object[];
   columns: object[];
+  customClass: string;
 }
 
 withDefaults(defineProps<TableDataProps>(), {
   rows: () => [],
   columns: () => [],
+  customClass: "",
 });
 </script>
 

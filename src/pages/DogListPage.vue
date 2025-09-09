@@ -1,8 +1,11 @@
 <template>
   <q-page>
     <div class="">
-      <div>Tabela de caes</div>
-      <table-component :columns="colunas" :rows="linhas" />
+      <table-component
+        :columns="columns"
+        :rows="dogsRow"
+        @handle-actions="handleActions"
+      />
     </div>
   </q-page>
 </template>
@@ -11,29 +14,50 @@
 import { ref } from "vue";
 import TableComponent from "../components/TableComponent.vue";
 
-const colunas = ref([
+const columns = ref([
   {
-    name: "index",
-    label: "#teste",
+    name: "name",
+    label: "Nome",
     field: "name",
   },
   {
-    name: "inddex",
-    label: "#teste2",
-    field: "iron",
+    name: "gender",
+    label: "Sexo",
+    field: "gender",
+  },
+  {
+    name: "breed",
+    label: "Raça",
+    field: "breed",
+  },
+  {
+    name: "owner",
+    label: "Tutor",
+    field: "owner",
+  },
+  {
+    name: "actions",
+    label: "",
+    field: "",
   },
 ]);
 
-const linhas = ref([
+const dogsRow = ref([
   {
-    name: "Frozen Yogurt",
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: "14%",
-    iron: "1%",
+    name: "Laila",
+    gender: "Fêmea",
+    breed: "Beagle",
+    owner: "Leticia",
+  },
+  {
+    name: "Joplin",
+    gender: "Fêmea",
+    breed: "Buldog",
+    owner: "Leticia",
   },
 ]);
+
+const handleActions = (row) => {
+  console.log(row);
+};
 </script>
