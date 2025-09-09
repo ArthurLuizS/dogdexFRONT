@@ -10,6 +10,14 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/DogListPage.vue") }],
   },
+  {
+    meta: { title: "Cadastro de Hóspedes" },
+    path: "/novohospede",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      { path: "", component: () => import("pages/DogRegistration.vue") },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

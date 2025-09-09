@@ -11,8 +11,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount, nextTick } from "vue";
+import { useRouter } from "vue-router";
 import TableComponent from "../components/TableComponent.vue";
+import { useHeader } from "../stores/header.ts";
+
+const router = useRouter();
+const headerStore = useHeader();
 
 const columns = ref([
   {
@@ -60,4 +65,22 @@ const dogsRow = ref([
 const handleActions = (row) => {
   console.log(row);
 };
+
+const newDog = () => {
+  router.push("/novohospede");
+  console.log("funcao new dog");
+};
+
+const headerActions = {
+  function: newDog,
+  icon: "add_circle_outline",
+  label: "Novo Hóspede",
+};
+
+onBeforeMount(() => {
+  headerStore.$reset();
+  nextTick(() => {
+    headerStore.action = headerActions;
+  });
+});
 </script>
