@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="">
+    <div class="tw-h-full tw-rounded-xl tw-bg-white">
       <table-component
         :columns="columns"
         :rows="dogsRow"
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, nextTick } from "vue";
+import { ref, onBeforeMount, onBeforeUnmount, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import TableComponent from "../components/TableComponent.vue";
 import { useHeader } from "../stores/header.ts";
@@ -82,5 +82,9 @@ onBeforeMount(() => {
   nextTick(() => {
     headerStore.action = headerActions;
   });
+});
+
+onBeforeUnmount(() => {
+  headerStore.$reset();
 });
 </script>

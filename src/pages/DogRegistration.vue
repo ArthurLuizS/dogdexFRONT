@@ -1,11 +1,18 @@
 <template>
   <q-page>
-    <div class="q-pa-md tw-border tw-h-full">
+    <div class="q-pa-md tw-border tw-h-full tw-pb-16">
       <q-form @submit="() => console.log(dog)" class="tw-h-full">
         <q-scroll-area class="tw-h-full tw-w-full">
           <div class="text-h6 q-mb-sm">Dados do Cachorro</div>
           <div class="tw-grid tw-grid-cols-3 tw-gap-3">
-            <q-input v-model="dog.name" label="Nome" dense rounded outlined />
+            <q-input
+              v-model="dog.name"
+              label="Nome"
+              dense
+              rounded
+              outlined
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
+            />
             <q-input v-model="dog.age" label="Idade" dense rounded outlined />
             <q-input
               v-model="dog.birthday"
@@ -22,6 +29,7 @@
               dense
               rounded
               outlined
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
             <q-select
               v-model="dog.size"
@@ -30,8 +38,16 @@
               dense
               rounded
               outlined
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
-            <q-input v-model="dog.breed" label="Raça" dense rounded outlined />
+            <q-input
+              v-model="dog.breed"
+              label="Raça"
+              dense
+              rounded
+              outlined
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
+            />
             <q-input
               v-model="dog.instagram"
               label="Instagram"
@@ -50,6 +66,7 @@
               outlined
               dense
               rounded
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
             <q-input
               v-model="dog.owner.addres"
@@ -71,6 +88,8 @@
               outlined
               dense
               rounded
+              mask="###.###.###-##"
+              unmasked-value
             />
             <q-input
               v-model="dog.owner.phone"
@@ -78,55 +97,67 @@
               outlined
               dense
               rounded
+              mask="(##)#####-####"
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
           </div>
 
           <q-separator spaced />
           <div class="text-h6 q-mb-sm">Saúde</div>
-
-          <q-toggle v-model="dog.health.castrated" label="Castrado" />
-          <q-toggle v-model="dog.health.inHeart" label="No cio" />
-          <q-toggle v-model="dog.health.disease" label="Possui doença?" />
-          <q-input
-            v-if="dog.health.disease"
-            v-model="dog.health.diseaseDesc"
-            label="Descrição da doença"
-            outlined
-            dense
-            rounded
-          />
-          <q-toggle v-model="dog.health.allergies" label="Possui alergias?" />
-          <q-input
-            v-if="dog.health.allergies"
-            v-model="dog.health.allergiesDesc"
-            label="Descrição das alergias"
-            outlined
-            dense
-            rounded
-          />
-
-          <q-separator spaced />
-
-          <div class="text-h6 q-mb-sm">Veterinário</div>
-          <div>
+          <div class="tw-flex tw-flex-col">
+            <q-toggle v-model="dog.health.disease" label="Possui doença?" />
             <q-input
+              v-if="dog.health.disease"
+              v-model="dog.health.diseaseDesc"
+              label="Descrição da doença"
+              outlined
+              dense
+              rounded
+              :rules="[(val) => !!val || 'Necessário Descrição']"
+            />
+            <q-toggle v-model="dog.health.allergies" label="Possui alergias?" />
+            <q-input
+              v-if="dog.health.allergies"
+              v-model="dog.health.allergiesDesc"
+              label="Descrição das alergias"
+              outlined
+              dense
+              rounded
+              :rules="[(val) => !!val || 'Necessário Descrição']"
+            />
+            <q-toggle v-model="dog.health.HasVet" label="Possui Veterinário?" />
+
+            <q-input
+              v-if="dog.health.HasVet"
               v-model="dog.health.vet.name"
               label="Nome do Veterinário"
               outlined
               dense
               rounded
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
             <q-input
+              v-if="dog.health.HasVet"
               v-model="dog.health.vet.phone"
               label="Telefone do Veterinário"
               outlined
               dense
               rounded
+              :rules="[(val) => !!val || 'Campo Obrigatório']"
             />
+            <q-toggle v-model="dog.health.castrated" label="Castrado" />
+            <q-toggle v-model="dog.health.inHeart" label="No cio" />
           </div>
-
-          <q-btn type="submit" label="Salvar" color="primary" class="q-mt-md" />
         </q-scroll-area>
+        <div class="tw-w-full tw-flex tw-justify-end">
+          <q-btn
+            type="submit"
+            label="Salvar"
+            color="primary"
+            class=""
+            rounded
+          />
+        </div>
       </q-form>
     </div>
   </q-page>
@@ -149,6 +180,7 @@ interface Veterinarian {
 }
 
 interface health {
+  HasVet: boolean;
   vet: Veterinarian | null;
   castrated: boolean;
   inHeart: boolean;
@@ -188,6 +220,7 @@ const dog = ref<Dog>({
     phone: "",
   },
   health: {
+    HasVet: false,
     vet: {
       name: "",
       phone: "",
@@ -196,7 +229,7 @@ const dog = ref<Dog>({
     inHeart: false,
     disease: false,
     diseaseDesc: null,
-    allergies: null,
+    allergies: false,
     allergiesDesc: null,
   },
 });
