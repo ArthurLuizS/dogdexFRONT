@@ -5,6 +5,9 @@
     </RouterLink>
     <nav class="full-height flex column" style="gap: 5px">
       <Iconlink link="/caes" icon="pets" title="Lista de Cães" />
+      <Iconlink link="/" icon="pets" title="Banhos" />
+      <Iconlink link="/" icon="pets" title="Clientes" />
+      <Iconlink link="/" icon="pets" title="Configurações" />
     </nav>
   </div>
 </template>

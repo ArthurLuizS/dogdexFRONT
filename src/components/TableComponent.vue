@@ -9,7 +9,7 @@
       :rows-per-page-options="[0]"
       :virtual-scroll-sticky-size-start="48"
       row-key="index"
-      title="Treats"
+      title="Lista de Cães"
       :rows="rows"
       :columns="columns"
     >
@@ -55,7 +55,7 @@ withDefaults(defineProps<TableDataProps>(), {
   .q-table__top,
   .q-table__bottom,
   thead tr:first-child th /* bg color is important for th; just specify one */
-    background-color: #00b4ff
+    background-color: $accent
 
   thead tr th
     position: sticky
