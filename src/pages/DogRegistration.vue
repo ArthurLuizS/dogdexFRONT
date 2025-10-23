@@ -1,7 +1,8 @@
 <template>
   <q-page>
     <div class="q-pa-md tw-border tw-h-full tw-pb-16">
-      <q-form @submit="() => console.log(dog)" class="tw-h-full">
+      <DogForm />
+      <!-- <q-form @submit="() => console.log(dog)" class="tw-h-full">
         <q-scroll-area class="tw-h-full tw-w-full">
           <div class="text-h6 q-mb-sm">Dados do Cachorro</div>
           <div class="tw-grid tw-grid-cols-3 tw-gap-3">
@@ -158,13 +159,14 @@
             rounded
           />
         </div>
-      </q-form>
+      </q-form> -->
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import DogForm from "../components/DogForm.vue";
 
 interface Owner {
   name: string;
