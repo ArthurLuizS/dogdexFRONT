@@ -165,8 +165,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import DogForm from "../components/DogForm.vue";
+import { useOwner } from "../stores/owners";
 
 interface Owner {
   name: string;
@@ -238,4 +239,9 @@ const dog = ref<Dog>({
 
 const sizes = ["Pequeno", "Médio", "Grande"];
 const genders = ["Macho", "Fêmea"];
+
+const ownerStore = useOwner();
+onBeforeMount(() => {
+  ownerStore.getAllOwners();
+});
 </script>
