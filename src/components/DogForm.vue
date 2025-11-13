@@ -1,5 +1,5 @@
 <template>
-  <q-form @submit="() => console.log(dog)" class="tw-h-full">
+  <q-form @submit.prevent="saveDog()" class="tw-h-full">
     <q-scroll-area class="tw-h-full tw-w-full">
       <div class="text-h6 q-mb-sm">Dados do Cachorro</div>
       <div class="tw-grid tw-grid-cols-3 tw-gap-3">
@@ -114,8 +114,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import { Health } from "../types/health";
+
+const emits = defineEmits(["dogEmited"]);
 
 interface Dog {
   name: string;
@@ -129,26 +131,29 @@ interface Dog {
   health: Health;
 }
 
-const dog = ref<Dog>({
-  name: "",
-  age: "",
-  birthday: "",
-  gender: "M",
-  size: "",
-  breed: "",
-  instagram: "",
-  owner: "",
-  health: {
-    has_vet: false,
-    vet_name: "",
-    vet_phone: "",
-    castrated: false,
-    in_heat: false,
-    chronic_disease: false,
-    disease_description: "",
-    allergies: "",
-    special_recommendations: "",
-  },
+const dog = defineModel({
+  type: Object,
+  default: () => ({
+    name: "",
+    age: "",
+    birthday: "",
+    gender: "M",
+    size: "",
+    breed: "",
+    instagram: "",
+    owner: "",
+    health: {
+      has_vet: false,
+      vet_name: "",
+      vet_phone: "",
+      castrated: false,
+      in_heat: false,
+      chronic_disease: false,
+      disease_description: "",
+      allergies: "",
+      special_recommendations: "",
+    },
+  }),
 });
 
 const sizes = [
@@ -165,6 +170,7 @@ const sizes = [
     value: "G",
   },
 ];
+
 const genders = [
   {
     label: "Macho",
@@ -175,4 +181,8 @@ const genders = [
     value: "F",
   },
 ];
+
+const saveDog = () => {
+  emits("dogEmited", { ...dog.value });
+};
 </script>
