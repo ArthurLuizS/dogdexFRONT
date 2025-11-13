@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="tw-h-full">
     <q-table
       class="my-sticky-virtscroll-table"
       :class="customClass"
@@ -50,7 +50,7 @@ withDefaults(defineProps<TableDataProps>(), {
 <style lang="sass">
 .my-sticky-virtscroll-table
   /* height or max-height is important */
-  height: 410px
+  height: 100%
 
   .q-table__top,
   .q-table__bottom,

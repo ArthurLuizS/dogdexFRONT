@@ -168,6 +168,7 @@
 import { ref, onBeforeMount } from "vue";
 import DogForm from "../components/DogForm.vue";
 import { useOwner } from "../stores/owners";
+import { useDogs } from "../stores/dogs";
 
 interface Owner {
   name: string;
@@ -241,7 +242,9 @@ const sizes = ["Pequeno", "Médio", "Grande"];
 const genders = ["Macho", "Fêmea"];
 
 const ownerStore = useOwner();
+const dogStore = useDogs();
 onBeforeMount(() => {
   ownerStore.getAllOwners();
+  dogStore.getAllDogs();
 });
 </script>
