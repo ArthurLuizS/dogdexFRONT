@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { api } from "src/boot/axios";
 
 export interface Dog {
   name: string;
@@ -12,22 +13,25 @@ export interface Dog {
 }
 
 interface State {
-  active: boolean | null;
-  title: string | null;
-  query: string;
+  allDogs: Dog[];
 }
 
-export const useHeader = defineStore("header", {
+export const useDogs = defineStore("dogs", {
   state: () =>
     ({
-      active: null,
-      action: null,
-      secondaryActions: null,
-      search: null,
-      query: "",
-      title: null,
-      reload: true,
+      allDogs: [],
     } as State),
   getters: {},
-  actions: {},
+  actions: {
+    async getAllDogs() {
+      try {
+        const { data } = await api.get("/dogs/");
+        this.allDogs = data;
+        return this.allDogs;
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    },
+  },
 });

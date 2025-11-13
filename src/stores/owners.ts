@@ -33,7 +33,7 @@ export const useOwner = defineStore("owner", {
   actions: {
     async getAllOwners() {
       try {
-        const { data } = api.get("/owners/");
+        const { data } = await api.get("/owners/");
         console.log(data);
       } catch (error) {
         console.error(error);
