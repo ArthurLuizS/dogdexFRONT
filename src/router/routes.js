@@ -6,9 +6,15 @@ const routes = [
   },
   {
     meta: { title: "Lista de Cães" },
-    path: "/caes",
+    path: "/dogs",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/DogListPage.vue") }],
+  },
+  {
+    meta: {},
+    path: "/dog",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: ":id", component: () => import("pages/DogDetail.vue") }],
   },
   {
     meta: { title: "Cadastro de Hóspedes" },

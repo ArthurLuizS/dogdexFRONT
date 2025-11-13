@@ -13,8 +13,12 @@
       <img v-else src="img.png" style="height: 16px" />
 
       <div class="separator" />
-      <span class="text-primary text-weight-medium">
+      <span class="text-primary text-weight-medium" v-if="route.meta.title">
         {{ route.meta.title }}
+      </span>
+
+      <span v-else class="text-primary text-weight-medium">
+        {{ headerStore.title }}
       </span>
 
       <q-space />
