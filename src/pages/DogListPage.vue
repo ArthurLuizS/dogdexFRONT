@@ -71,12 +71,11 @@ const columns = ref([
 const dogsRow = ref();
 
 const handleActions = (row) => {
-  console.log(row);
+  router.push(`/dog/${row.id}`);
 };
 
 const newDog = () => {
   router.push("/novohospede");
-  console.log("funcao new dog");
 };
 
 const headerActions = {
