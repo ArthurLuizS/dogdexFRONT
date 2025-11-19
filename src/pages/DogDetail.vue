@@ -1,7 +1,27 @@
 <template>
   <q-page>
     <div class="tw-h-full">
-      <DogForm v-model="dog" @dog-emited="handleSave" />
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-grey"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab name="details" label="Cadastro" />
+        <q-tab name="services" label="Serviços" />
+      </q-tabs>
+      <q-separator />
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="details">
+          <DogForm v-model="dog" @dog-emited="handleSave" />
+        </q-tab-panel>
+        <q-tab-panel name="services">
+          <div class="tw-h-6">serviços</div>
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
   </q-page>
 </template>
@@ -10,9 +30,14 @@ import { useRoute } from "vue-router";
 import { onBeforeMount, ref } from "vue";
 import DogForm from "../components/DogForm.vue";
 import { useHeader } from "../stores/header";
+import { useDogs } from "../stores/dogs";
+
+const tab = ref("details");
 
 const route = useRoute();
+
 const headerStore = useHeader();
+const dogStore = useDogs();
 
 const dog = defineModel({
   type: Object,
@@ -43,7 +68,10 @@ const handleSave = (event) => {
   console.log(event);
 };
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   headerStore.title = "Cachorrinho detail";
+  if (route.params.id) {
+    await dogStore.getDog(route.params.id);
+  }
 });
 </script>
