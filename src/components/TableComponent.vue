@@ -12,7 +12,23 @@
       title="Lista de Cães"
       :rows="rows"
       :columns="columns"
+      :filter="search"
     >
+      <template v-slot:top-right>
+        <q-input
+          borderless
+          dense
+          debounce="300"
+          v-model="search"
+          placeholder="Procurar"
+          rounded
+          outlined
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
       <!-- coluna de 'ver mais' -->
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
@@ -34,6 +50,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+
+const search = ref();
+
 interface TableDataProps {
   rows: object[];
   columns: object[];
