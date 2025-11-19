@@ -33,5 +33,14 @@ export const useDogs = defineStore("dogs", {
         return [];
       }
     },
+    async getDog(id: string) {
+      try {
+        const { data } = await api.get(`dogs/${id}/`);
+        return data;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    },
   },
 });
